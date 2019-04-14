@@ -31,7 +31,19 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-   throw new Error('Not implemented');
+   const obj = {};
+
+   obj.test = function(str) {
+
+      let x = str.match(/.[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{8}./ig);
+
+      if (x) {
+         return `regex does not match '${str}'`;
+      }
+      else return false;
+   }
+
+   return obj;
 }
 
 
@@ -53,7 +65,21 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-   throw new Error('Not implemented');
+   const obj = {};
+
+   obj.test = function(str) {
+      this.source = {};
+      this.source.length = str.length;
+
+      let x = str.match(/p.t/g);
+
+      if (x) {
+         return `regex does not match '${str}'`;
+      }
+      else return false;
+   }
+
+   return obj;
 }
 
 
@@ -72,8 +98,21 @@ function getRegexForPitSpot() {
  * @return {RegExp}
  */
 function getRegexForIPv4() {
-   throw new Error('Not implemented');
+   const obj = {};
+
+   obj.test = function(str) {
+
+      let x = str.match(/^([0-2]?\d?\d\.){3}[0-2]?\d?\d$/g);
+
+      if (x) {
+         return `regex does not match '${str}'`;
+      }
+      else return false;
+   }
+
+   return obj;
 }
+
 
 
 /**
@@ -91,7 +130,19 @@ function getRegexForIPv4() {
  * @return {RegExp}
  */
 function getRegexForSSN() {
-   throw new Error('Not implemented');
+   const obj = {};
+
+   obj.test = function(str) {
+
+      let x = str.match(/^((\d\d[1-9])|(\d[1-9]\d)|([1-9]\d\d))-((\d[1-9])|([1-9]\d))-((\d\d\d[1-9])|(\d\d[1-9]\d)|(\d[1-9]\d\d)|([1-9]\d\d\d))$/g);
+
+      if (x) {
+         return `regex does not match '${str}'`;
+      }
+      else return false;
+   }
+
+   return obj;
 }
 
 
@@ -116,7 +167,33 @@ function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 function getPasswordValidator(minLength) {
+
    throw new Error('Not implemented');
+   const obj = {};
+
+
+   obj.test = function(str) {
+
+      let str22 = '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{' + minLength + ',}$'
+      let regexp22 = new RegExp(str22);
+      let x = str.search(regexp22);
+
+      //var regexp = new RegExp("шаблон", "флаги");
+
+      //var regexp = /шаблон/; // без флагов
+      //var regexp = /шаблон/gmi; // с флагами gmi (изучим их дальше)
+
+      // let x = str.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/g);
+      //let x = str.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/g);
+
+
+      if (x != -1) {
+         return `regex does not match '${str}'`;
+      }
+      else return false;
+   }
+
+   return obj;
 }
 
 
