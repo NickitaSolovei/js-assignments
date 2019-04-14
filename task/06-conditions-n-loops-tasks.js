@@ -132,7 +132,16 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    let yc1 = rect1.top + rect1.height / 2;
+    let xc1 = rect1.left + rect1.width / 2;
+
+    let yc2 = rect2.top + rect2.height / 2;
+    let xc2 = rect2.left + rect2.width / 2;
+
+    if (( Math.abs(yc1 - yc2) < (rect1.height + rect2.height) / 2) && (Math.abs(xc1 - xc2) < (rect1.width + rect2.width) / 2)) {
+        return true;
+    }
+    else return false;
 }
 
 
@@ -163,7 +172,11 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    let len = Math.sqrt(Math.pow((circle.center.x - point.x), 2) + Math.pow((circle.center.y - point.y), 2));
+    if (len < circle.radius) {
+        return true;
+    }
+    return false;
 }
 
 
@@ -179,7 +192,21 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    const arr = str.split('');
+    for (let i = 0; i < arr.length; i++) {
+        let count = 0;
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i] === arr[j]) {
+                count = 1
+                arr.splice(j , 1)
+            }
+        }
+        if (count === 0) {
+            return arr[i];
+        }
+
+    }
+    return null;
 }
 
 
@@ -205,7 +232,23 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    let str = '';
+    if (isStartIncluded) {
+        str += '[';
+    }
+    else str += '(';
+
+    if (a < b) {
+        str += a + ', ' + b;
+    }
+    else str += b + ', ' + a;
+
+    if (isEndIncluded) {
+        str += ']';
+    }
+    else str += ')';
+
+    return str;
 }
 
 
@@ -222,7 +265,10 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    const arr = str.split('');
+    let a = arr.reverse();
+    let b = a.join('');
+    return b;
 }
 
 
@@ -239,7 +285,11 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    let str = '' + num;
+    const arr = str.split('');
+    let a = arr.reverse();
+    let b = a.join('');
+    return b;
 }
 
 
@@ -264,7 +314,12 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    let cardNo = '' + ccn;
+    let sum = 0, even = false;
+    cardNo.split('').reverse().forEach(function(dstr){ let d = parseInt(dstr);
+        sum += ((even = !even) ? d : (d < 5) ? d * 2 : (d - 5) * 2 + 1);
+    });
+    return (sum % 10 == 0);
 }
 
 
@@ -283,7 +338,18 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    let str = '' + num;
+    const arr = str.split('');
+    let sum = arr.reduce(function(sum, current) {
+        return sum + +current;
+    }, 0);
+
+    sum = '' + sum;
+    const arr2 = sum.split('');
+    let sum2 = arr2.reduce(function(sum2, current) {
+        return sum2 + +current;
+    }, 0);
+    return sum2;
 }
 
 
@@ -345,7 +411,22 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let date1 = new Date(startDate);
+    let date2 = new Date(endDate);
+    let x = date2 - date1;
+
+    if (x <= 45 * 1000) return  'a few seconds ago';
+    if ( x <= 90 * 1000) return 'a minute ago';
+    if (x <= 45 * 60 * 1000) return  '' + Math.ceil(x / (60 * 1000) - 0.5) + ' minutes ago';
+    if (x <= 90 * 60 * 1000) return  'an hour ago';
+    if (x <= 22 * 60 * 60 * 1000) return  '' + Math.ceil(x / (60 * 1000 * 60) - 0.5) + ' hours ago';
+    if (x <= 36 * 60 * 60 * 1000) return  'a day ago';
+    if (x <= 25 * 24 * 60 * 60 * 1000) return  '' + Math.ceil(x / (60 * 1000 * 60 * 24) - 0.5) + ' days ago';
+    if (x <= 45 * 24 * 60 * 60 * 1000) return  'a month ago';
+    if (x <= 345 * 24 * 60 * 60 * 1000) return  '' + Math.ceil(x / (60 * 1000 * 60 * 24 * 30) - 0.5) + ' months ago';
+    if (x <= 545 * 24 * 60 * 60 * 1000) return  'a year ago';    
+ 
+    return '' + Math.ceil(x / (60 * 1000 * 60 * 24 * 365) - 0.5) + ' years ago';
 }
 
 
